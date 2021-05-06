@@ -1,5 +1,11 @@
 .vscode
 *.out
+*.txt
 practices
 objs
 test
+sender
+receiver
+asap_receiver
+interactive_receiver
+interactive_sender

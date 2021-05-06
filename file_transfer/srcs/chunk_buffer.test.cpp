@@ -6,7 +6,7 @@ class ChunkBufferTest: public ::testing::Test
 protected:
 	t_chunk_buf	buf;
 
-	virtual	void SetUp(void)
+	virtual	void	SetUp(void)
 	{
 		init_chunk_buf(&buf);
 	}

@@ -7,20 +7,20 @@ INC_DIR = ./includes
 OBJ_DIR = ./objs
 LIB_DIR = ../libs
 LIBFT = $(LIB_DIR)/libft
-FT_PRINTF = $(LIB_DIR)/ft_printf
 
 # compiler
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra
 INCLUDES = -I $(INC_DIR)\
 	-I $(LIBFT)/includes\
-	-I $(FT_PRINTF)/includes
 
 LIBS = -L $(LIBFT) -lft\
-	-L $(FT_PRINTF) -lftprintf\
 
 # srcs
-SRCS = chunk_buffer.c
+SRCS = chunk_buffer.c\
+	sender.c\
+	receiver.c\
+	utils.c\
 
 TEST = ./srcs/*.test.cpp
 
@@ -52,7 +52,6 @@ def = ''
 
 test:
 	$(MAKE) -C $(LIBFT)
-	$(MAKE) -C $(FT_PRINTF)
 	g++\
 		-Wall -Wextra -std=c++11\
 		$(def)\
@@ -60,7 +59,12 @@ test:
 		-lgtest\
 		$(LIBS)\
 		$(INCLUDES)\
-		srcs/*.c $(TEST)\
+		$(filter-out ./srcs/*_main.c, $(addprefix ./srcs/, $(SRCS))) $(TEST)\
 		-o $@
+	$(CC) $(INCLUDES) $(LIBS) $(addprefix ./srcs/, $(SRCS)) ./srcs/sender_test_main.c -o sender
+	$(CC) -DCHUNK_SIZE=200 -DCHUNK_COUNT=4 $(INCLUDES) $(LIBS) $(addprefix ./srcs/, $(SRCS)) ./srcs/receiver_test_main.c -o receiver
+	$(CC) $(INCLUDES) $(LIBS) $(addprefix ./srcs/, $(SRCS)) ./srcs/interactive_receiver.c -o interactive_receiver
+	$(CC) $(INCLUDES) $(LIBS) $(addprefix ./srcs/, $(SRCS)) ./srcs/asap_receiver.c -o asap_receiver
+	$(CC) $(INCLUDES) $(LIBS) $(addprefix ./srcs/, $(SRCS)) ./srcs/interactive_sender.c -o interactive_sender
 
 .PHONY: test
