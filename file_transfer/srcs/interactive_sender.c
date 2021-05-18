@@ -16,7 +16,7 @@ void	interactive_send_chunk(int sockfd)
 	t_uint64		filesize = 3200;
 
 	// send SYN
-	syn.filesize = filesize;
+	syn.size = filesize;
 	if (send(sockfd, &syn, sizeof(t_transfer_hdr), 0) == -1)
 	{
 		printf("failed to send SYN\n");
@@ -29,7 +29,7 @@ void	interactive_send_chunk(int sockfd)
 		printf("failed to receive SYNACK");
 		return ;
 	}
-	chunk_size = ack.filesize;
+	chunk_size = ack.size;
 	max_rcwd = ack.rcwd;
 	buf = malloc(chunk_size + sizeof(t_transfer_hdr));
 	hdr = (t_transfer_hdr *)buf;
@@ -61,7 +61,7 @@ void	interactive_send_chunk(int sockfd)
 		get_next_line(0, &line);
 
 		hdr->seq = (t_uint32)atoi(line);
-		hdr->filesize = chunk_size;
+		hdr->size = chunk_size;
 		for (t_uint32 i=0; i < chunk_size / 4; i++)
 		{
 			*((t_uint32 *)chunk + i) = hdr->seq;

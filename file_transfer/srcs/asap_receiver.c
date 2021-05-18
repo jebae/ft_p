@@ -17,14 +17,14 @@ void	asap_receive_chunk(int sockfd)
 		printf("failed to receive SYN\n");
 		return ;
 	}
-	filesize = hdr->filesize;
+	filesize = hdr->size;
 	printf("SYN received: %s [%lluB]\n",
 		buf + sizeof(t_transfer_hdr), filesize);
 
 
 	// send SYNACK
 	ack.ack = 0;
-	ack.filesize = block_size;
+	ack.size = block_size;
 	ack.rcwd = block_count;
 	if (send(sockfd, &ack, sizeof(ack), 0) == -1)
 	{

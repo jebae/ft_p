@@ -24,7 +24,7 @@ static int	send_syn(
 		return (-1);
 	ft_memcpy(buf, hdr, sizeof(t_transfer_hdr));
 	hdr = (t_transfer_hdr *)buf;
-	hdr->filesize = filesize;
+	hdr->size = filesize;
 	ft_strcpy((char *)buf + sizeof(t_transfer_hdr), filename);
 	res = 0;
 	if (send(sockfd, buf, size, 0) == -1)
@@ -43,7 +43,7 @@ static int	send_chunk(
 	r = read(fd[1], buf + sizeof(t_transfer_hdr), chunk_size);
 	if (r == -1)
 		return (-1);
-	hdr->filesize = r;
+	hdr->size = r;
 	hdr->seq = seq;
 	if (send(fd[0], buf, sizeof(t_transfer_hdr) + chunk_size, 0) == -1)
 		return (-1);
@@ -60,7 +60,7 @@ static int	send_pipelined(
 
 	base = ack->ack;
 	next = base;
-	chunk_size = ack->filesize;
+	chunk_size = ack->size;
 	buf = (t_uint8 *)ft_memalloc(sizeof(t_transfer_hdr) + chunk_size);
 	if (buf == NULL)
 		return (-1);

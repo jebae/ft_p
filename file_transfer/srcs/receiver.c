@@ -4,7 +4,7 @@ static int		send_synack(int sockfd)
 {
 	t_transfer_hdr	hdr;
 
-	hdr.filesize = CHUNK_SIZE;
+	hdr.size = CHUNK_SIZE;
 	hdr.rcwd = CHUNK_COUNT;
 	hdr.ack = 0;
 	if (send(sockfd, &hdr, sizeof(t_transfer_hdr), 0) == -1)
@@ -32,7 +32,7 @@ static int		write_chunks(t_uint8 *buf, t_chunk_buf *chunk_buf,
 	t_uint64		size;
 
 	hdr = (t_transfer_hdr *)buf;
-	if (write(fd, buf + sizeof(t_transfer_hdr), hdr->filesize) == -1)
+	if (write(fd, buf + sizeof(t_transfer_hdr), hdr->size) == -1)
 		return (-1);
 	*expected += 1;
 	heap = &chunk_buf->heap;
@@ -63,7 +63,7 @@ static int		receive_chunks(int sockfd, t_uint64 filesize, int fd)
 		if (recv(sockfd, buf, buf_size, 0) == -1)
 			return (handle_err("failed to send SYNACK"));
 		if (hdr->seq > expected)
-			push_chunk(hdr->seq, hdr->filesize,
+			push_chunk(hdr->seq, hdr->size,
 				buf + sizeof(t_transfer_hdr), &chunk_buf);
 		else if (hdr->seq == expected)
 			if (write_chunks(buf, &chunk_buf, &expected, fd) == -1)

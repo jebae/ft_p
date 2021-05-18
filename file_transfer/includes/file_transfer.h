@@ -64,7 +64,7 @@ typedef struct			s_chunk_buf
 typedef struct			s_transfer_hdr
 {
 	t_uint8		cmd;
-	t_uint64	filesize;
+	t_uint64	size;
 	t_uint32	seq;
 	t_uint32	ack;
 	t_uint32	rcwd;

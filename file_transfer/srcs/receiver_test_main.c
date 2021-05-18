@@ -62,7 +62,7 @@ int	main()
 			printf("failed to receive SYN\n");
 			return (-1);
 		}
-		receive_file(accfd, hdr->filesize, "./received.txt");
+		receive_file(accfd, hdr->size, "./received.txt");
 		printf("receive file complete\n");
 	}
 }
