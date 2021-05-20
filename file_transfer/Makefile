@@ -1,10 +1,6 @@
-# name
-NAME = libfiletransfer.a
-
 # path
 SRC_DIR = ./srcs
 INC_DIR = ./includes
-OBJ_DIR = ./objs
 LIB_DIR = ../libs
 LIBFT = $(LIB_DIR)/libft
 
@@ -24,30 +20,7 @@ SRCS = chunk_buffer.c\
 
 TEST = ./srcs/*.test.cpp
 
-# objs
-OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
-
-# compile
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
-	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
-
 # command
-all: $(NAME)
-
-$(NAME): $(OBJ_DIR) $(OBJS)
-	$(CC) $(CFLAGS) $(INCLUDES) $(LIBS) -o $@ $(OBJS)
-
-clean:
-	rm -rf $(OBJ_DIR)
-
-fclean: clean
-	rm -rf $(NAME)
-
-re: fclean all
-
-$(OBJ_DIR):
-	mkdir -p $@
-
 def = ''
 
 test:

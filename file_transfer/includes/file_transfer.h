@@ -26,6 +26,14 @@ extern "C" {
 # define CHUNK_COUNT	32
 # endif
 
+# define CMD_ERR		0
+# define CMD_LS			1
+# define CMD_LSACK		2
+
+# define KB				(1 << 10)
+# define MB				(1 << 20)
+# define GB				(1 << 30)
+
 typedef char				t_int8;
 typedef unsigned char		t_uint8;
 typedef short				t_int16;
@@ -34,6 +42,8 @@ typedef int					t_int32;
 typedef unsigned int		t_uint32;
 typedef long long			t_int64;
 typedef unsigned long long	t_uint64;
+
+# pragma pack(push, 1)
 
 typedef struct			s_chunk_stack
 {
@@ -61,6 +71,12 @@ typedef struct			s_chunk_buf
 	t_uint8			data[CHUNK_COUNT][CHUNK_SIZE];
 }						t_chunk_buf;
 
+typedef struct			s_hdr
+{
+	t_uint8		cmd;
+	t_uint64	size;
+}						t_hdr;
+
 typedef struct			s_transfer_hdr
 {
 	t_uint8		cmd;
@@ -69,6 +85,29 @@ typedef struct			s_transfer_hdr
 	t_uint32	ack;
 	t_uint32	rcwd;
 }						t_transfer_hdr;
+
+typedef struct			s_ls_hdr
+{
+	t_uint8		cmd;
+	t_uint64	size;
+}						t_ls_hdr;
+
+typedef struct			s_lsack_hdr
+{
+	t_uint8		cmd;
+	t_uint64	size;
+	t_uint32	cnt;
+}						t_lsack_hdr;
+
+typedef struct			s_file_info
+{
+	char		type;
+	t_int64		size;
+	time_t		created_at;
+	t_uint32	name_off;
+}						t_file_info;
+
+# pragma pack(pop)
 
 void					init_chunk_buf(t_chunk_buf *buf);
 int						push_chunk(
@@ -90,5 +129,8 @@ int						send_file(
 
 int						receive_file(
 	int sockfd, t_uint64 filesize, char *filepath);
+
+int						read_payload(
+	int sockfd, t_hdr *hdr, t_uint8 **payload);
 
 #endif

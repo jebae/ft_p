@@ -61,7 +61,7 @@ static int		receive_chunks(int sockfd, t_uint64 filesize, int fd)
 	while (expected * CHUNK_SIZE < filesize)
 	{
 		if (recv(sockfd, buf, buf_size, 0) == -1)
-			return (handle_err("failed to send SYNACK"));
+			return (handle_err("failed to receive chunk"));
 		if (hdr->seq > expected)
 			push_chunk(hdr->seq, hdr->size,
 				buf + sizeof(t_transfer_hdr), &chunk_buf);

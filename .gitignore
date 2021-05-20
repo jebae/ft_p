@@ -9,3 +9,7 @@ receiver
 asap_receiver
 interactive_receiver
 interactive_sender
+ls_sender
+.storage
+client/client
+server/server
