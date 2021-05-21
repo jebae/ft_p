@@ -3,8 +3,6 @@
 
 # include "file_transfer.h"
 
-# include <dirent.h>
-
 # define ROOT_DIR		".storage"
 
 typedef struct dirent	t_dirent;
@@ -27,6 +25,6 @@ int				handle_ls(int sockfd, t_ls_hdr *hdr, char *cwd);
 int				cmd_route(
 	int sockfd, struct sockaddr_in *client_addr, t_hdr *hdr, char **cwd);
 
-void			send_error(int sockfd);
+int				send_error(int sockfd, char *payload);
 
 #endif

@@ -7,8 +7,9 @@
 # include <netinet/in.h>
 # include <arpa/inet.h>
 # include <stdarg.h>
-
+# include <dirent.h>
 # include <stdio.h>
+
 # ifdef __cplusplus
 extern "C" {
 # endif
@@ -123,6 +124,8 @@ void					log_transfer_percent(
 	t_uint32 seq, t_uint64 transferred, t_uint64 filesize);
 
 int						handle_err(const char *msg);
+
+int						is_dir_exist(char *path);
 
 int						send_file(
 	int sockfd, t_transfer_hdr *hdr, char *filepath);

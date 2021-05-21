@@ -19,6 +19,6 @@ int		cmd_route(
 		res = handle_ls(sockfd, (t_ls_hdr *)hdr, *cwd);
 	}
 	if (res == -1)
-		send_error(sockfd);
+		send_error(sockfd, "server error");
 	return (res);
 }

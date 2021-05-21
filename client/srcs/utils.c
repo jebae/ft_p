@@ -26,6 +26,8 @@ int		handle_err_ack(int sockfd, t_hdr *hdr)
 	char	*payload;
 
 	payload = (char *)ft_memalloc(hdr->size);
+	if (payload == NULL)
+		return (-1);
 	if (recv(sockfd, payload, hdr->size, 0) == -1)
 	{
 		ft_memdel((void **)&payload);

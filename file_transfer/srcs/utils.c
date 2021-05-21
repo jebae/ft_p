@@ -36,3 +36,14 @@ int		handle_err(const char *msg)
 	print_log(msg);
 	return (-1);
 }
+
+int		is_dir_exist(char *path)
+{
+	DIR	*dir;
+
+	dir = opendir(path);
+	if (dir == NULL)
+		return (0);
+	closedir(dir);
+	return (1);
+}
