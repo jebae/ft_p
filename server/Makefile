@@ -22,11 +22,13 @@ LIBS = -L $(LIBFT) -lft
 # srcs
 SRCS = cmd_route.c\
 	main.c\
-	send_error.c\
+	utils.c\
 
 SRC_LS = payload.c\
 	file_list.c\
 	network_io.c\
+
+SRC_CD = network_io.c\
 
 SRC_FILE_TRANSFER = chunk_buffer.c\
 	sender.c\
@@ -37,12 +39,16 @@ SRC_FILE_TRANSFER = chunk_buffer.c\
 # objs
 OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
 OBJS += $(addprefix $(OBJ_DIR)/ls_, $(SRC_LS:.c=.o))
+OBJS += $(addprefix $(OBJ_DIR)/cd_, $(SRC_CD:.c=.o))
 OBJS += $(addprefix $(OBJ_DIR)/tranfer_, $(SRC_FILE_TRANSFER:.c=.o))
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 $(OBJ_DIR)/ls_%.o: $(SRC_DIR)/ls/%.c
+	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+
+$(OBJ_DIR)/cd_%.o: $(SRC_DIR)/cd/%.c
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 $(OBJ_DIR)/tranfer_%.o: $(FILE_TRANSFTER)/srcs/%.c

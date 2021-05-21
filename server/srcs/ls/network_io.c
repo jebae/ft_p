@@ -24,7 +24,7 @@ static t_uint8	*write_lsack_msg(char *path)
 	return (msg);
 }
 
-static int		send_lsack_msg(int sockfd, char *path)
+static int		send_lsack(int sockfd, char *path)
 {
 	t_uint8		*msg;
 	t_lsack_hdr	*hdr;
@@ -41,35 +41,18 @@ static int		send_lsack_msg(int sockfd, char *path)
 	return (0);
 }
 
-static char		*get_path(int sockfd, t_ls_hdr *hdr, char *cwd)
-{
-	char	*path;
-	char	*tmp;
-
-	if (read_payload(sockfd, (t_hdr *)hdr, (t_uint8 **)&path) == -1)
-		return (NULL);
-	tmp = path;
-	if ((path = resolve_path(cwd, path)) == NULL)
-	{
-		ft_memdel((void **)&tmp);
-		return (NULL);
-	}
-	ft_memdel((void **)&tmp);
-	tmp = path;
-	path = ft_strjoin(ROOT_DIR, path);
-	ft_memdel((void **)&tmp);
-	return (path);
-}
-
 int				handle_ls(int sockfd, t_ls_hdr *hdr, char *cwd)
 {
 	char	*path;
 	int		res;
 
-	if ((path = get_path(sockfd, hdr, cwd)) == NULL)
+	path = (hdr->size == 0)
+		? get_absolute_path(cwd)
+		: resolve_payload_path(sockfd, hdr, cwd);
+	if (path == NULL)
 		return (-1);
 	res = (is_dir_exist(path))
-		? send_lsack_msg(sockfd, path)
+		? send_lsack(sockfd, path)
 		: send_error(sockfd, "directory not exist");
 	ft_memdel((void **)&path);
 	return (res);

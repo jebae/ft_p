@@ -1,10 +1,17 @@
 #include "server.h"
 
 static	void	log_cmd(
-	const char *type, struct sockaddr_in *cli_addr)
+	t_uint8 type, struct sockaddr_in *cli_addr)
 {
+	char	cmd[8];
+
+	if (type == CMD_LS)
+		ft_strcpy(cmd, "LS");
+	else if (type == CMD_CD)
+		ft_strcpy(cmd, "CD");
+
 	printf("[%s] %s:%d\n",
-		type, inet_ntoa(cli_addr->sin_addr), cli_addr->sin_port);
+		cmd, inet_ntoa(cli_addr->sin_addr), cli_addr->sin_port);
 }
 
 int		cmd_route(
@@ -13,11 +20,11 @@ int		cmd_route(
 	int		res;
 
 	res = -1;
+	log_cmd(hdr->cmd, cli_addr);
 	if (hdr->cmd == CMD_LS)
-	{
-		log_cmd("LS", cli_addr);
 		res = handle_ls(sockfd, (t_ls_hdr *)hdr, *cwd);
-	}
+	else if (hdr->cmd == CMD_CD)
+		res = handle_cd(sockfd, (t_cd_hdr *)hdr, cwd);
 	if (res == -1)
 		send_error(sockfd, "server error");
 	return (res);

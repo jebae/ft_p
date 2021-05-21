@@ -19,6 +19,8 @@ static int	handle_cmd(int sockfd, char **args)
 {
 	if (ft_strcmp(args[0], "ls") == 0)
 		return (handle_ls(sockfd, args));
+	else if (ft_strcmp(args[0], "cd") == 0)
+		return (handle_cd(sockfd, args));
 	return (0);
 }
 

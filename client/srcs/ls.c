@@ -29,19 +29,17 @@ static int	receive_ack(int sockfd, int detail)
 
 	if (recv(sockfd, &hdr, sizeof(t_hdr), 0) == -1)
 		return (-1);
-	if (hdr.cmd == CMD_LSACK)
-	{
-		ft_memcpy(&ack_hdr, &hdr, sizeof(t_hdr));
-		if (recv(sockfd, (void *)&ack_hdr + sizeof(t_hdr),
-			sizeof(t_lsack_hdr) - sizeof(t_hdr), 0) == -1)
-			return (-1);
-		if (read_payload(sockfd, (t_hdr *)&ack_hdr, &payload) == -1)
-			return (-1);
-		print_file_list(&ack_hdr, payload, detail);
-		ft_memdel((void **)&payload);
-		return (0);
-	}
-	return (handle_err_ack(sockfd, &hdr));
+	if (hdr.cmd == CMD_ERR)
+		return (handle_err_ack(sockfd, &hdr));
+	ft_memcpy(&ack_hdr, &hdr, sizeof(t_hdr));
+	if (recv(sockfd, (void *)&ack_hdr + sizeof(t_hdr),
+		sizeof(t_lsack_hdr) - sizeof(t_hdr), 0) == -1)
+		return (-1);
+	if (read_payload(sockfd, (t_hdr *)&ack_hdr, &payload) == -1)
+		return (-1);
+	print_file_list(&ack_hdr, payload, detail);
+	ft_memdel((void **)&payload);
+	return (0);
 }
 
 static int	send_ls_cwd(int sockfd)
@@ -52,31 +50,6 @@ static int	send_ls_cwd(int sockfd)
 	hdr.size = 0;
 	if (send(sockfd, &hdr, sizeof(t_ls_hdr), 0) == -1)
 		return (-1);
-	return (0);
-}
-
-static int	send_ls(int sockfd, char *path)
-{
-	t_ls_hdr	*hdr;
-	t_uint8		*msg;
-	t_uint32	size;
-
-	if (path == NULL)
-		return (send_ls_cwd(sockfd));
-	size = ft_strlen(path) + 1;
-	msg = (t_uint8 *)ft_memalloc(sizeof(t_ls_hdr) + size);
-	if (msg == NULL)
-		return (-1);
-	hdr = (t_ls_hdr *)msg;
-	hdr->cmd = CMD_LS;
-	hdr->size = size;
-	ft_strcpy((char *)msg + sizeof(t_ls_hdr), path);
-	if (send(sockfd, msg, sizeof(t_ls_hdr) + size, 0) == -1)
-	{
-		ft_memdel((void **)&msg);
-		return (-1);
-	}
-	ft_memdel((void **)&msg);
 	return (0);
 }
 
@@ -91,10 +64,14 @@ int		handle_ls(int sockfd, char **args)
 	else if (ft_strcmp(args[1], "-l") == 0)
 	{
 		detail = 1;
-		send_res = send_ls(sockfd, args[2]);
+		send_res = (args[2] == NULL)
+			? send_ls_cwd(sockfd)
+			: send_payload_only_cmd(
+				sockfd, CMD_LS, args[2], ft_strlen(args[2]) + 1);
 	}
 	else
-		send_res = send_ls(sockfd, args[1]);
+		send_res = send_payload_only_cmd(
+			sockfd, CMD_LS, args[1], ft_strlen(args[1]) + 1);
 	if (send_res == -1)
 		return (-1);
 	if (receive_ack(sockfd, detail) == -1)

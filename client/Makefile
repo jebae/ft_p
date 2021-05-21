@@ -23,6 +23,7 @@ LIBS = -L $(LIBFT) -lft
 SRCS = console.c\
 	main.c\
 	ls.c\
+	cd.c\
 	utils.c\
 
 SRC_FILE_TRANSFER = chunk_buffer.c\

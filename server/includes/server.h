@@ -22,9 +22,13 @@ int				write_lsack_payload(
 
 int				handle_ls(int sockfd, t_ls_hdr *hdr, char *cwd);
 
+int				handle_cd(int sockfd, t_cd_hdr *hdr, char **cwd);
+
 int				cmd_route(
 	int sockfd, struct sockaddr_in *client_addr, t_hdr *hdr, char **cwd);
 
+char			*get_absolute_path(char *path);
+char			*resolve_payload_path(int sockfd, t_ls_hdr *hdr, char *cwd);
 int				send_error(int sockfd, char *payload);
 
 #endif

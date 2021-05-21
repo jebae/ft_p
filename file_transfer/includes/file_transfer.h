@@ -30,6 +30,8 @@ extern "C" {
 # define CMD_ERR		0
 # define CMD_LS			1
 # define CMD_LSACK		2
+# define CMD_CD			3
+# define CMD_CDACK		4
 
 # define KB				(1 << 10)
 # define MB				(1 << 20)
@@ -87,11 +89,7 @@ typedef struct			s_transfer_hdr
 	t_uint32	rcwd;
 }						t_transfer_hdr;
 
-typedef struct			s_ls_hdr
-{
-	t_uint8		cmd;
-	t_uint64	size;
-}						t_ls_hdr;
+typedef t_hdr			t_ls_hdr;
 
 typedef struct			s_lsack_hdr
 {
@@ -99,6 +97,10 @@ typedef struct			s_lsack_hdr
 	t_uint64	size;
 	t_uint32	cnt;
 }						t_lsack_hdr;
+
+typedef t_hdr			t_cd_hdr;
+
+typedef t_hdr			t_cdack_hdr;
 
 typedef struct			s_file_info
 {
