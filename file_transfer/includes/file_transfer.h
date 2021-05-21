@@ -32,6 +32,8 @@ extern "C" {
 # define CMD_LSACK		2
 # define CMD_CD			3
 # define CMD_CDACK		4
+# define CMD_PWD		5
+# define CMD_PWDACK		6
 
 # define KB				(1 << 10)
 # define MB				(1 << 20)
@@ -99,8 +101,9 @@ typedef struct			s_lsack_hdr
 }						t_lsack_hdr;
 
 typedef t_hdr			t_cd_hdr;
-
 typedef t_hdr			t_cdack_hdr;
+typedef t_hdr			t_pwd_hdr;
+typedef t_hdr			t_pwdack_hdr;
 
 typedef struct			s_file_info
 {

@@ -1,5 +1,16 @@
 #include "client.h"
 
+static int	send_ls_cwd(int sockfd)
+{
+	t_ls_hdr	hdr;
+
+	hdr.cmd = CMD_LS;
+	hdr.size = 0;
+	if (send(sockfd, &hdr, sizeof(t_ls_hdr), 0) == -1)
+		return (-1);
+	return (0);
+}
+
 static void	print_file_list(t_lsack_hdr *ack_hdr, t_uint8 *payload, int detail)
 {
 	t_uint32	i;
@@ -42,18 +53,7 @@ static int	receive_ack(int sockfd, int detail)
 	return (0);
 }
 
-static int	send_ls_cwd(int sockfd)
-{
-	t_ls_hdr	hdr;
-
-	hdr.cmd = CMD_LS;
-	hdr.size = 0;
-	if (send(sockfd, &hdr, sizeof(t_ls_hdr), 0) == -1)
-		return (-1);
-	return (0);
-}
-
-int		handle_ls(int sockfd, char **args)
+int			handle_ls(int sockfd, char **args)
 {
 	int		send_res;
 	int		detail;

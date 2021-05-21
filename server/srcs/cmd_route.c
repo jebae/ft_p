@@ -9,6 +9,8 @@ static	void	log_cmd(
 		ft_strcpy(cmd, "LS");
 	else if (type == CMD_CD)
 		ft_strcpy(cmd, "CD");
+	else if (type == CMD_PWD)
+		ft_strcpy(cmd, "PWD");
 
 	printf("[%s] %s:%d\n",
 		cmd, inet_ntoa(cli_addr->sin_addr), cli_addr->sin_port);
@@ -25,6 +27,8 @@ int		cmd_route(
 		res = handle_ls(sockfd, (t_ls_hdr *)hdr, *cwd);
 	else if (hdr->cmd == CMD_CD)
 		res = handle_cd(sockfd, (t_cd_hdr *)hdr, cwd);
+	else if (hdr->cmd == CMD_PWD)
+		res = handle_pwd(sockfd, *cwd);
 	if (res == -1)
 		send_error(sockfd, "server error");
 	return (res);
