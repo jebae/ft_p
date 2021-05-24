@@ -34,6 +34,8 @@ extern "C" {
 # define CMD_CDACK		4
 # define CMD_PWD		5
 # define CMD_PWDACK		6
+# define CMD_GET		7
+# define CMD_GETACK		8
 
 # define KB				(1 << 10)
 # define MB				(1 << 20)
@@ -86,6 +88,7 @@ typedef struct			s_transfer_hdr
 {
 	t_uint8		cmd;
 	t_uint64	size;
+	t_uint64	filesize;
 	t_uint32	seq;
 	t_uint32	ack;
 	t_uint32	rcwd;
@@ -104,6 +107,7 @@ typedef t_hdr			t_cd_hdr;
 typedef t_hdr			t_cdack_hdr;
 typedef t_hdr			t_pwd_hdr;
 typedef t_hdr			t_pwdack_hdr;
+typedef t_hdr			t_get_hdr;
 
 typedef struct			s_file_info
 {
@@ -129,8 +133,9 @@ void					log_transfer_percent(
 	t_uint32 seq, t_uint64 transferred, t_uint64 filesize);
 
 int						handle_err(const char *msg);
-
 int						is_dir_exist(char *path);
+int						is_file_exist(char *path);
+char					get_file_type(mode_t mode);
 
 int						send_file(
 	int sockfd, t_transfer_hdr *hdr, char *filepath);

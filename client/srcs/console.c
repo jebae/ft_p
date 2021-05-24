@@ -23,6 +23,8 @@ static int	handle_cmd(int sockfd, char **args)
 		return (handle_cd(sockfd, args));
 	else if (ft_strcmp(args[0], "pwd") == 0)
 		return (handle_pwd(sockfd));
+	else if (ft_strcmp(args[0], "get") == 0)
+		return (handle_get(sockfd, args));
 	return (0);
 }
 

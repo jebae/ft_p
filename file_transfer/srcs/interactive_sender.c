@@ -16,7 +16,7 @@ void	interactive_send_chunk(int sockfd)
 	t_uint64		filesize = 3200;
 
 	// send SYN
-	syn.size = filesize;
+	syn.filesize = filesize;
 	if (send(sockfd, &syn, sizeof(t_transfer_hdr), 0) == -1)
 	{
 		printf("failed to send SYN\n");

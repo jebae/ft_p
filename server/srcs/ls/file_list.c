@@ -6,14 +6,6 @@ static int			cmp_name(void *a, void *b)
 		((t_file_node *)b)->name));
 }
 
-static char			get_file_type(mode_t mode)
-{
-	mode = mode & S_IFMT;
-	if (mode == S_IFDIR)
-		return ('d');
-	return ('f');
-}
-
 static t_file_node	*null_with_closing_file(int fd)
 {
 	close(fd);

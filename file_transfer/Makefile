@@ -16,6 +16,7 @@ LIBS = -L $(LIBFT) -lft\
 SRCS = chunk_buffer.c\
 	sender.c\
 	receiver.c\
+	file.c\
 	utils.c\
 
 TEST = ./srcs/*.test.cpp

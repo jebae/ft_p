@@ -16,7 +16,7 @@ void	interactive_receive_chunk(int sockfd,
 		printf("failed to receive SYN\n");
 		return ;
 	}
-	filesize = hdr->size;
+	filesize = hdr->filesize;
 	printf("SYN received: %s [%lluB]\n",
 		buf + sizeof(t_transfer_hdr), filesize);
 

@@ -18,16 +18,17 @@ static int	send_syn(
 	size_t		size;
 	int			res;
 
-	size = sizeof(t_transfer_hdr) + ft_strlen(filename) + 1;
-	buf = (t_uint8 *)ft_memalloc(size);
+	size = ft_strlen(filename) + 1;
+	buf = (t_uint8 *)ft_memalloc(sizeof(t_transfer_hdr) + size);
 	if (buf == NULL)
 		return (-1);
 	ft_memcpy(buf, hdr, sizeof(t_transfer_hdr));
 	hdr = (t_transfer_hdr *)buf;
-	hdr->size = filesize;
+	hdr->size = size;
+	hdr->filesize = filesize;
 	ft_strcpy((char *)buf + sizeof(t_transfer_hdr), filename);
 	res = 0;
-	if (send(sockfd, buf, size, 0) == -1)
+	if (send(sockfd, buf, sizeof(t_transfer_hdr) + size, 0) == -1)
 		res = -1;
 	ft_memdel((void **)&buf);
 	return (res);

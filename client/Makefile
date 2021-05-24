@@ -25,12 +25,14 @@ SRCS = console.c\
 	ls.c\
 	cd.c\
 	pwd.c\
+	get.c\
 	utils.c\
 
 SRC_FILE_TRANSFER = chunk_buffer.c\
 	sender.c\
 	receiver.c\
 	payload.c\
+	file.c\
 	utils.c\
 
 # objs
@@ -51,6 +53,7 @@ all: $(NAME)
 $(NAME): $(OBJ_DIR) $(OBJS)
 	$(MAKE) -C $(LIBFT)
 	$(CC) $(CFALGS) $(INCLUDES) $(LIBS) $(OBJS) -o $@
+	mkdir -p .storage
 
 $(OBJ_DIR):
 	mkdir -p $@
