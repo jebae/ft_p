@@ -26,6 +26,7 @@ SRCS = console.c\
 	cd.c\
 	pwd.c\
 	get.c\
+	lls.c\
 	utils.c\
 
 SRC_FILE_TRANSFER = chunk_buffer.c\
