@@ -27,6 +27,7 @@ SRCS = console.c\
 	pwd.c\
 	get.c\
 	put.c\
+	del.c\
 	lls.c\
 	utils.c\
 

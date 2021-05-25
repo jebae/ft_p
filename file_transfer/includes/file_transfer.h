@@ -37,6 +37,8 @@ extern "C" {
 # define CMD_GET		7
 # define CMD_GETACK		8
 # define CMD_PUT		9
+# define CMD_DEL		10
+# define CMD_DELACK		11
 
 # define KB				(1 << 10)
 # define MB				(1 << 20)
@@ -109,6 +111,8 @@ typedef t_hdr			t_cdack_hdr;
 typedef t_hdr			t_pwd_hdr;
 typedef t_hdr			t_pwdack_hdr;
 typedef t_hdr			t_get_hdr;
+typedef t_hdr			t_del_hdr;
+typedef t_hdr			t_delack_hdr;
 
 typedef struct			s_file_info
 {

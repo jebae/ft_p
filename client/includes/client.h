@@ -19,6 +19,7 @@ int		handle_ls(int sockfd, char **args);
 int		handle_cd(int sockfd, char **args);
 int		handle_get(int sockfd, char **args);
 int		handle_put(int sockfd, char **args);
+int		handle_del(int sockfd, char **args);
 int		handle_pwd(int sockfd);
 int		handle_lls(char **args);
 int		send_payload_only_cmd(
