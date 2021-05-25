@@ -1,11 +1,5 @@
 #include "client.h"
 
-static int	arg_required(void)
-{
-	printf("argument required\n");
-	return (0);
-}
-
 /**
  * return value
  *  0: GETACK received
@@ -31,12 +25,9 @@ static int	receive_ack(int sockfd, t_transfer_hdr *tf_hdr, char **filepath)
 		return (-1);
 	tmp = *filepath;
 	*filepath = strcat_all(3, ROOT_DIR, "/", *filepath);
-	if (filepath == NULL)
-	{
-		ft_memdel((void **)&tmp);
-		return (-1);
-	}
 	ft_memdel((void **)&tmp);
+	if (*filepath == NULL)
+		return (-1);
 	return (0);
 }
 
@@ -45,6 +36,7 @@ int			handle_get(int sockfd, char **args)
 	t_transfer_hdr	hdr;
 	char			*filepath;
 	int				ack_res;
+	int				res;
 
 	if (args[1] == NULL)
 		return (arg_required());
@@ -56,11 +48,7 @@ int			handle_get(int sockfd, char **args)
 		return (-1);
 	else if (ack_res == 1)
 		return (0);
-	if (receive_file(sockfd, hdr.filesize, filepath) == -1)
-	{
-		ft_memdel((void **)&filepath);
-		return (-1);
-	}
+	res = receive_file(sockfd, hdr.filesize, filepath);
 	ft_memdel((void **)&filepath);
-	return (0);
+	return (res);
 }

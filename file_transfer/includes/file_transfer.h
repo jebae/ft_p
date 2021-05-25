@@ -36,6 +36,7 @@ extern "C" {
 # define CMD_PWDACK		6
 # define CMD_GET		7
 # define CMD_GETACK		8
+# define CMD_PUT		9
 
 # define KB				(1 << 10)
 # define MB				(1 << 20)

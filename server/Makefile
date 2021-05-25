@@ -35,6 +35,8 @@ SRC_PWD = network_io.c\
 
 SRC_GET = network_io.c\
 
+SRC_PUT = network_io.c\
+
 SRC_FILE_TRANSFER = chunk_buffer.c\
 	sender.c\
 	receiver.c\
@@ -48,6 +50,7 @@ OBJS += $(addprefix $(OBJ_DIR)/ls_, $(SRC_LS:.c=.o))
 OBJS += $(addprefix $(OBJ_DIR)/cd_, $(SRC_CD:.c=.o))
 OBJS += $(addprefix $(OBJ_DIR)/pwd_, $(SRC_PWD:.c=.o))
 OBJS += $(addprefix $(OBJ_DIR)/get_, $(SRC_GET:.c=.o))
+OBJS += $(addprefix $(OBJ_DIR)/put_, $(SRC_PUT:.c=.o))
 OBJS += $(addprefix $(OBJ_DIR)/tranfer_, $(SRC_FILE_TRANSFER:.c=.o))
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
@@ -63,6 +66,9 @@ $(OBJ_DIR)/pwd_%.o: $(SRC_DIR)/pwd/%.c
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 $(OBJ_DIR)/get_%.o: $(SRC_DIR)/get/%.c
+	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+
+$(OBJ_DIR)/put_%.o: $(SRC_DIR)/put/%.c
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 $(OBJ_DIR)/tranfer_%.o: $(FILE_TRANSFTER)/srcs/%.c

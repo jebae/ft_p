@@ -77,7 +77,5 @@ int		main(int argc, char *argv[])
 				res = cmd_route(accfd, &cli_addr, &hdr, (char **)&cwd);
 			}
 		}
-		else
-			waitpid(pid, NULL, 0);
 	}
 }

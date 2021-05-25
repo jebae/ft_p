@@ -29,6 +29,7 @@ int		is_file_exist(char *path)
 {
 	struct stat	st;
 	int			fd;
+	int			res;
 
 	fd = open(path, O_RDONLY, 0);
 	if (fd == -1)
@@ -38,13 +39,9 @@ int		is_file_exist(char *path)
 		close(fd);
 		return (0);
 	}
-	if (get_file_type(st.st_mode) != 'f')
-	{
-		close(fd);
-		return (0);
-	}
+	res = get_file_type(st.st_mode) == 'f';
 	close(fd);
-	return (1);
+	return (res);
 }
 
 char	get_file_type(mode_t mode)

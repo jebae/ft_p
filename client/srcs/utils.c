@@ -59,3 +59,9 @@ int		send_payload_only_cmd(
 	ft_memdel((void **)&msg);
 	return (0);
 }
+
+int		arg_required(void)
+{
+	printf("argument required\n");
+	return (0);
+}

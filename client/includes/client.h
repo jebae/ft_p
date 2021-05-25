@@ -18,9 +18,11 @@ int		handle_err_ack(int sockfd, t_hdr *hdr);
 int		handle_ls(int sockfd, char **args);
 int		handle_cd(int sockfd, char **args);
 int		handle_get(int sockfd, char **args);
+int		handle_put(int sockfd, char **args);
 int		handle_pwd(int sockfd);
 int		handle_lls(char **args);
 int		send_payload_only_cmd(
 	int sockfd, t_uint8 type, char *payload, t_uint64 size);
+int		arg_required(void);
 
 #endif

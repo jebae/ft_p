@@ -27,6 +27,8 @@ static int	handle_cmd(int sockfd, char **args)
 		return (handle_get(sockfd, args));
 	else if (ft_strcmp(args[0], "lls") == 0)
 		return (handle_lls(args));
+	else if (ft_strcmp(args[0], "put") == 0)
+		return (handle_put(sockfd, args));
 	return (0);
 }
 

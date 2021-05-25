@@ -13,6 +13,8 @@ static	void	log_cmd(
 		ft_strcpy(cmd, "PWD");
 	else if (type == CMD_GET)
 		ft_strcpy(cmd, "GET");
+	else if (type == CMD_PUT)
+		ft_strcpy(cmd, "PUT");
 
 	printf("[%s] %s:%d\n",
 		cmd, inet_ntoa(cli_addr->sin_addr), cli_addr->sin_port);
@@ -33,6 +35,8 @@ int		cmd_route(
 		res = handle_pwd(sockfd, *cwd);
 	else if (hdr->cmd == CMD_GET)
 		res = handle_get(sockfd, (t_get_hdr *)hdr, *cwd);
+	else if (hdr->cmd == CMD_PUT)
+		res = handle_put(sockfd, (t_hdr *)hdr, *cwd);
 	if (res == -1)
 		send_error(sockfd, "server error");
 	return (res);
