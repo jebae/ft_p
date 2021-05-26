@@ -19,6 +19,8 @@ static	void	log_cmd(
 		ft_strcpy(cmd, "DEL");
 	else if (type == CMD_MKDIR)
 		ft_strcpy(cmd, "MKDIR");
+	else if (type == CMD_RMDIR)
+		ft_strcpy(cmd, "RMDIR");
 
 	printf("[%s] %s:%d\n",
 		cmd, inet_ntoa(cli_addr->sin_addr), cli_addr->sin_port);
@@ -45,6 +47,8 @@ int		cmd_route(
 		res = handle_del(sockfd, (t_hdr *)hdr, *cwd);
 	else if (hdr->cmd == CMD_MKDIR)
 		res = handle_mkdir(sockfd, (t_hdr *)hdr, *cwd);
+	else if (hdr->cmd == CMD_RMDIR)
+		res = handle_rmdir(sockfd, (t_hdr *)hdr, *cwd);
 	if (res == -1)
 		send_error(sockfd, "server error");
 	return (res);

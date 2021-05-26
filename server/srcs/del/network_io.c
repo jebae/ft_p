@@ -2,7 +2,7 @@
 
 static int	send_delack(int sockfd)
 {
-	t_cd_hdr	hdr;
+	t_delack_hdr	hdr;
 
 	hdr.cmd = CMD_DELACK;
 	hdr.size = 0;

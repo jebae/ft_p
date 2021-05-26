@@ -41,6 +41,8 @@ extern "C" {
 # define CMD_DELACK		11
 # define CMD_MKDIR		12
 # define CMD_MKDIRACK	13
+# define CMD_RMDIR		14
+# define CMD_RMDIRACK	15
 
 # define KB				(1 << 10)
 # define MB				(1 << 20)
@@ -117,6 +119,8 @@ typedef t_hdr			t_del_hdr;
 typedef t_hdr			t_delack_hdr;
 typedef t_hdr			t_mkdir_hdr;
 typedef t_hdr			t_mkdirack_hdr;
+typedef t_hdr			t_rmdir_hdr;
+typedef t_hdr			t_rmdirack_hdr;
 
 typedef struct			s_file_info
 {

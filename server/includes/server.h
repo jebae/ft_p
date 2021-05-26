@@ -23,6 +23,8 @@ int				write_lsack_payload(
 int				write_pwdack_payload(
 	char *cwd, t_uint8 **payload, t_uint64 *size);
 
+int				remove_dir(char *path);
+
 int				handle_ls(int sockfd, t_ls_hdr *hdr, char *cwd);
 int				handle_cd(int sockfd, t_cd_hdr *hdr, char **cwd);
 int				handle_pwd(int sockfd, char *cwd);
@@ -30,12 +32,13 @@ int				handle_get(int sockfd, t_get_hdr *hdr, char *cwd);
 int				handle_put(int sockfd, t_hdr *hdr, char *cwd);
 int				handle_del(int sockfd, t_hdr *hdr, char *cwd);
 int				handle_mkdir(int sockfd, t_mkdir_hdr *hdr, char *cwd);
+int				handle_rmdir(int sockfd, t_rmdir_hdr *hdr, char *cwd);
 
 int				cmd_route(
 	int sockfd, struct sockaddr_in *client_addr, t_hdr *hdr, char **cwd);
 
 char			*get_absolute_path(char *path);
 char			*resolve_payload_path(int sockfd, t_ls_hdr *hdr, char *cwd);
-int				send_error(int sockfd, char *payload);
+int				send_error(int sockfd, const char *payload);
 
 #endif

@@ -11,14 +11,14 @@ static int	receive_ack(int sockfd)
 	return (0);
 }
 
-int			handle_mkdir(int sockfd, char **args)
+int			handle_rmdir(int sockfd, char **args)
 {
 	int		send_res;
 
 	if (args[1] == NULL)
 		return (arg_required());
 	send_res = send_payload_only_cmd(
-		sockfd, CMD_MKDIR, args[1], ft_strlen(args[1]) + 1);
+		sockfd, CMD_RMDIR, args[1], ft_strlen(args[1]) + 1);
 	if (send_res == -1)
 		return (-1);
 	if (receive_ack(sockfd) == -1)

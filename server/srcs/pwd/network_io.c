@@ -9,7 +9,7 @@ static t_uint8	*write_pwdack_msg(char *cwd)
 
 	if (write_pwdack_payload(cwd, &payload, &size) == -1)
 		return (NULL);
-	if ((msg = ft_memalloc(sizeof(t_pwdack_hdr) + size)) == NULL)
+	if ((msg = (t_uint8 *)ft_memalloc(sizeof(t_pwdack_hdr) + size)) == NULL)
 	{
 		ft_memdel((void **)&payload);
 		return (NULL);

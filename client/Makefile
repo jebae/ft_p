@@ -29,6 +29,7 @@ SRCS = console.c\
 	put.c\
 	del.c\
 	mkdir.c\
+	rmdir.c\
 	lls.c\
 	utils.c\
 

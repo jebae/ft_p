@@ -2,11 +2,11 @@
 
 static int	send_cdack(int sockfd)
 {
-	t_cd_hdr	hdr;
+	t_cdack_hdr	hdr;
 
 	hdr.cmd = CMD_CDACK;
 	hdr.size = 0;
-	if (send(sockfd, &hdr, sizeof(t_cd_hdr), 0) == -1)
+	if (send(sockfd, &hdr, sizeof(t_cdack_hdr), 0) == -1)
 		return (-1);
 	return (0);
 }

@@ -25,7 +25,7 @@ char	*resolve_payload_path(int sockfd, t_ls_hdr *hdr, char *cwd)
 	return (path);
 }
 
-int		send_error(int sockfd, char *payload)
+int		send_error(int sockfd, const char *payload)
 {
 	t_uint8				msg[128];
 	t_hdr				*hdr;

@@ -9,11 +9,11 @@ static int	make_directory(char *path)
 
 static int	send_mkdirack(int sockfd)
 {
-	t_cd_hdr	hdr;
+	t_mkdirack_hdr	hdr;
 
 	hdr.cmd = CMD_MKDIRACK;
 	hdr.size = 0;
-	if (send(sockfd, &hdr, sizeof(t_cd_hdr), 0) == -1)
+	if (send(sockfd, &hdr, sizeof(t_mkdirack_hdr), 0) == -1)
 		return (-1);
 	return (0);
 }

@@ -33,6 +33,8 @@ static int	handle_cmd(int sockfd, char **args)
 		return (handle_del(sockfd, args));
 	else if (ft_strcmp(args[0], "mkdir") == 0)
 		return (handle_mkdir(sockfd, args));
+	else if (ft_strcmp(args[0], "rmdir") == 0)
+		return (handle_rmdir(sockfd, args));
 	return (0);
 }
 
