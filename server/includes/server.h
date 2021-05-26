@@ -29,6 +29,7 @@ int				handle_pwd(int sockfd, char *cwd);
 int				handle_get(int sockfd, t_get_hdr *hdr, char *cwd);
 int				handle_put(int sockfd, t_hdr *hdr, char *cwd);
 int				handle_del(int sockfd, t_hdr *hdr, char *cwd);
+int				handle_mkdir(int sockfd, t_mkdir_hdr *hdr, char *cwd);
 
 int				cmd_route(
 	int sockfd, struct sockaddr_in *client_addr, t_hdr *hdr, char **cwd);
