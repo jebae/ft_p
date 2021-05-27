@@ -26,6 +26,12 @@ static	void	log_cmd(
 		cmd, inet_ntoa(cli_addr->sin_addr), cli_addr->sin_port);
 }
 
+/**
+ * return values
+ *  0: no error
+ *  1: quit connection
+ * -1: error
+ */
 int		cmd_route(
 	int sockfd, struct sockaddr_in *cli_addr, t_hdr *hdr, char **cwd)
 {

@@ -10,6 +10,7 @@ extern "C" {
 # endif
 
 # define ROOT_DIR		".storage"
+# define RCV_TIMEOUT	10
 
 int		run_console(int sockfd);
 void	print_file_size(t_int64 size);
@@ -27,5 +28,6 @@ int		handle_lls(char **args);
 int		send_payload_only_cmd(
 	int sockfd, t_uint8 type, char *payload, t_uint64 size);
 int		arg_required(void);
+int		connect_server(t_uint16 port);
 
 #endif

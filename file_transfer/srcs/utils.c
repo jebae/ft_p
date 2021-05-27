@@ -27,3 +27,12 @@ int		handle_err(const char *msg)
 	print_log(msg);
 	return (-1);
 }
+
+int		set_recvtimeout(int sockfd, int sec)
+{
+	struct timeval	t;
+
+	t.tv_sec = sec;
+	t.tv_usec = 0;
+	return (setsockopt(sockfd, SOL_SOCKET, SO_RCVTIMEO, &t, sizeof(t)));
+}

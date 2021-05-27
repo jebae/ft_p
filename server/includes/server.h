@@ -4,6 +4,7 @@
 # include "file_transfer.h"
 
 # define ROOT_DIR		".storage"
+# define RCV_TIMEOUT	10
 
 typedef struct dirent	t_dirent;
 
@@ -40,5 +41,7 @@ int				cmd_route(
 char			*get_absolute_path(char *path);
 char			*resolve_payload_path(int sockfd, t_ls_hdr *hdr, char *cwd);
 int				send_error(int sockfd, const char *payload);
+
+int				run_server(t_uint16 port);
 
 #endif

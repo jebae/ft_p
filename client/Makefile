@@ -31,6 +31,7 @@ SRCS = console.c\
 	mkdir.c\
 	rmdir.c\
 	lls.c\
+	connect.c\
 	utils.c\
 
 SRC_FILE_TRANSFER = chunk_buffer.c\

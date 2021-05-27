@@ -22,6 +22,7 @@ LIBS = -L $(LIBFT) -lft
 # srcs
 SRCS = cmd_route.c\
 	main.c\
+	run_server.c\
 	utils.c\
 
 SRC_LS = payload.c\

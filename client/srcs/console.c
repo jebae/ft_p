@@ -59,5 +59,5 @@ int			run_console(int sockfd)
 		ft_memdel((void **)&input);
 		clear_arr(args);
 	}
-	return (1);
+	return (res);
 }

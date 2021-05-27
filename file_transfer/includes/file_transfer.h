@@ -159,4 +159,6 @@ int						receive_file(
 int						read_payload(
 	int sockfd, t_hdr *hdr, t_uint8 **payload);
 
+int						set_recvtimeout(int sockfd, int sec);
+
 #endif
