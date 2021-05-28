@@ -31,6 +31,7 @@ SRCS = console.c\
 	mkdir.c\
 	rmdir.c\
 	lls.c\
+	quit.c\
 	connect.c\
 	utils.c\
 

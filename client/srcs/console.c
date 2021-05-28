@@ -35,6 +35,8 @@ static int	handle_cmd(int sockfd, char **args)
 		return (handle_mkdir(sockfd, args));
 	else if (ft_strcmp(args[0], "rmdir") == 0)
 		return (handle_rmdir(sockfd, args));
+	else if (ft_strcmp(args[0], "quit") == 0)
+		return (handle_quit(sockfd));
 	return (0);
 }
 
@@ -45,7 +47,7 @@ int			run_console(int sockfd)
 	int		res;
 
 	res = 0;
-	while (res != -1)
+	while (res == 0)
 	{
 		printf("$> ");
 		fflush(stdout);

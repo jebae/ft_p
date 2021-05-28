@@ -4,7 +4,7 @@
 # include "file_transfer.h"
 
 # define ROOT_DIR		".storage"
-# define RCV_TIMEOUT	10
+# define RCV_TIMEOUT	60
 
 typedef struct dirent	t_dirent;
 

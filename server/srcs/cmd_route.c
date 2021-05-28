@@ -21,7 +21,8 @@ static	void	log_cmd(
 		ft_strcpy(cmd, "MKDIR");
 	else if (type == CMD_RMDIR)
 		ft_strcpy(cmd, "RMDIR");
-
+	else if (type == CMD_QUIT)
+		ft_strcpy(cmd, "QUIT");
 	printf("[%s] %s:%d\n",
 		cmd, inet_ntoa(cli_addr->sin_addr), cli_addr->sin_port);
 }
@@ -55,6 +56,8 @@ int		cmd_route(
 		res = handle_mkdir(sockfd, (t_hdr *)hdr, *cwd);
 	else if (hdr->cmd == CMD_RMDIR)
 		res = handle_rmdir(sockfd, (t_hdr *)hdr, *cwd);
+	else if (hdr->cmd == CMD_QUIT)
+		res = 1;
 	if (res == -1)
 		send_error(sockfd, "server error");
 	return (res);

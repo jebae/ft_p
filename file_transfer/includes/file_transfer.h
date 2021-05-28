@@ -43,6 +43,7 @@ extern "C" {
 # define CMD_MKDIRACK	13
 # define CMD_RMDIR		14
 # define CMD_RMDIRACK	15
+# define CMD_QUIT		16
 
 # define KB				(1 << 10)
 # define MB				(1 << 20)
@@ -121,6 +122,7 @@ typedef t_hdr			t_mkdir_hdr;
 typedef t_hdr			t_mkdirack_hdr;
 typedef t_hdr			t_rmdir_hdr;
 typedef t_hdr			t_rmdirack_hdr;
+typedef t_hdr			t_quit_hdr;
 
 typedef struct			s_file_info
 {
