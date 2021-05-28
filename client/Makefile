@@ -46,11 +46,13 @@ SRC_FILE_TRANSFER = chunk_buffer.c\
 OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
 OBJS += $(addprefix $(OBJ_DIR)/transfer_, $(SRC_FILE_TRANSFER:.c=.o))
 
+def = ''
+
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 $(OBJ_DIR)/transfer_%.o: $(FILE_TRANSFTER)/srcs/%.c
-	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+	$(CC) $(def) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 TEST = $(SRC_DIR)/**/*.cpp $(SRC_DIR)/*.cpp
 
@@ -59,7 +61,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ_DIR) $(OBJS)
 	$(MAKE) -C $(LIBFT)
-	$(CC) $(CFALGS) $(INCLUDES) $(LIBS) $(OBJS) -o $@
+	$(CC) $(CFALGS) $(def) $(INCLUDES) $(LIBS) $(OBJS) -o $@
 	mkdir -p .storage
 
 $(OBJ_DIR):
@@ -72,8 +74,6 @@ fclean: clean
 	rm -f $(NAME)
 
 re: fclean all
-
-def = ''
 
 test:
 	$(MAKE) -C $(LIBFT)

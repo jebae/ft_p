@@ -64,6 +64,8 @@ OBJS += $(addprefix $(OBJ_DIR)/mkdir_, $(SRC_MKDIR:.c=.o))
 OBJS += $(addprefix $(OBJ_DIR)/rmdir_, $(SRC_RMDIR:.c=.o))
 OBJS += $(addprefix $(OBJ_DIR)/tranfer_, $(SRC_FILE_TRANSFER:.c=.o))
 
+def = ''
+
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
@@ -92,7 +94,7 @@ $(OBJ_DIR)/rmdir_%.o: $(SRC_DIR)/rmdir/%.c
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 $(OBJ_DIR)/tranfer_%.o: $(FILE_TRANSFTER)/srcs/%.c
-	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+	$(CC) $(def) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 TEST = $(SRC_DIR)/**/*.cpp $(SRC_DIR)/*.cpp
 
@@ -101,7 +103,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ_DIR) $(OBJS)
 	$(MAKE) -C $(LIBFT)
-	$(CC) $(CFALGS) $(INCLUDES) $(LIBS) $(OBJS) -o $@
+	$(CC) $(def) $(CFALGS) $(INCLUDES) $(LIBS) $(OBJS) -o $@
 	mkdir -p .storage
 
 $(OBJ_DIR):
