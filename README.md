@@ -1,7 +1,8 @@
 # ft_p
 
-ft_p is simple file transfer protocol using TCP. Multiple client can access to server with uploading and downloading file. Server and client both can be sender and receiver of file.
-When transfer file, to assure right order of file chunk sequence, sender and receiver shares maximum chunk size and count. Receiver doesn't concat chunk if sequence is not serial but save it to prepared buffer. If expected sequence chunk arrive, receiver concat it and pop chunks from buffer that match sequence after arrived one.
+ft_p is simple file transfer protocol using TCP. Multiple client can access to server with uploading and downloading file. Server and client both can be sender and receiver of files.
+
+When transfer file, to assure right order of file chunk sequence, sender and receiver shares maximum chunk size and count. Receiver doesn't concat chunk if sequence is not serial but save it to prepared buffer. If expected sequence chunk arrives, receiver concat it and pop chunks from buffer that match sequence after arrived one.
 Sender receives ACK from receiver and never transfer over `rcwd`(receiver's buffer space). The idea is originated from flow control and accumulated ACK of TCP.
 
 <br><br>
@@ -95,7 +96,7 @@ Client downloads every file to `.storage` directly. Server can have subdirectory
 
 - `cd [directory name]`: change directory to `[directory name]`. If no argument, change directory to root(`.storage`).
 
-- `ls [directory name]`: list files and subdirectories of `[directory name]`. If no argument, list current directory's.
+- `ls [-l] [directory name]`: list files and subdirectories of `[directory name]`. If no argument, list current directory's.
 
 - `pwd`: print current directory path.
 
