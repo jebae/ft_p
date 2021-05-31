@@ -20,7 +20,7 @@ static int	create_socket(t_uint16 port)
 		return (-1);
 	}
 	server_addr.sin_family = AF_INET;
-	server_addr.sin_port = port;
+	server_addr.sin_port = htons(port);
 	server_addr.sin_addr.s_addr = inet_addr(ip);
 	if (bind(sockfd,
 		(struct sockaddr *)&server_addr, sizeof(server_addr)) == -1)
@@ -40,22 +40,23 @@ static void	listen_client(int sockfd, struct sockaddr_in *cli)
 
 	pid = fork();
 	if (pid != 0)
+	{
+		close(sockfd);
 		return ;
-	if ((cwd = ft_strdup("/")) == NULL)
-	{
-		err_closing_socket("cwd allocation failed", sockfd);
-		exit(EXIT_SUCCESS);
 	}
-	res = set_recvtimeout(sockfd, RCV_TIMEOUT);
-	while (res == 0)
+	if ((cwd = ft_strdup("/")) != NULL)
 	{
-		res = recv(sockfd, &hdr, sizeof(t_hdr), 0) == -1
-			? -1 : cmd_route(sockfd, cli, &hdr, &cwd);
+		res = set_recvtimeout(sockfd, RCV_TIMEOUT);
+		while (res == 0)
+		{
+			res = recv(sockfd, &hdr, sizeof(t_hdr), 0) == -1
+				? -1 : cmd_route(sockfd, cli, &hdr, &cwd);
+		}
+		if (res == -1)
+			printf("[ERROR] %s:%d\n", inet_ntoa(cli->sin_addr), ntohs(cli->sin_port));
+		close(sockfd);
+		ft_memdel((void **)&cwd);
 	}
-	if (res == -1)
-		printf("[ERROR] %s:%d\n", inet_ntoa(cli->sin_addr), cli->sin_port);
-	close(sockfd);
-	ft_memdel((void **)&cwd);
 	exit(EXIT_SUCCESS);
 }
 
@@ -78,7 +79,7 @@ int			run_server(t_uint16 port)
 		else
 		{
 			printf("client accept: %s:%d\n",
-				inet_ntoa(cli_addr.sin_addr), cli_addr.sin_port);
+				inet_ntoa(cli_addr.sin_addr), ntohs(cli_addr.sin_port));
 			listen_client(accfd, &cli_addr);
 		}
 	}

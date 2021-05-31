@@ -21,7 +21,7 @@ int			connect_server(t_uint16 port)
 		return (-1);
 	}
 	server_addr.sin_family = AF_INET;
-	server_addr.sin_port = port;
+	server_addr.sin_port = htons(port);
 	server_addr.sin_addr.s_addr = inet_addr(ip);
 	if (set_recvtimeout(sockfd, RCV_TIMEOUT) == -1)
 		return (err_closing_socket("set receive timtout failed", sockfd));

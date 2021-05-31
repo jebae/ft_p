@@ -24,7 +24,7 @@ static	void	log_cmd(
 	else if (type == CMD_QUIT)
 		ft_strcpy(cmd, "QUIT");
 	printf("[%s] %s:%d\n",
-		cmd, inet_ntoa(cli_addr->sin_addr), cli_addr->sin_port);
+		cmd, inet_ntoa(cli_addr->sin_addr), ntohs(cli_addr->sin_port));
 }
 
 /**
