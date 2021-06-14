@@ -1,5 +1,7 @@
 #include "client.h"
 
+static int	g_sockfd;
+
 static void	clear_arr(char **arr)
 {
 	int		i;
@@ -40,12 +42,21 @@ static int	handle_cmd(int sockfd, char **args)
 	return (0);
 }
 
+static void	handle_signal_quit(int sig)
+{
+	(void)sig;
+	handle_quit(g_sockfd);
+	exit(0);
+}
+
 int			run_console(int sockfd)
 {
 	char	*input;
 	char	**args;
 	int		res;
 
+	g_sockfd = sockfd;
+	signal(SIGINT, handle_signal_quit);
 	res = 0;
 	while (res == 0)
 	{
